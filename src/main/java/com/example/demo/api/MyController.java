@@ -1,7 +1,8 @@
 package com.example.demo.api;
 
+import com.example.demo.api.entity.DTO;
+import com.example.demo.api.entity.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,41 +10,25 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/my-controller")
 public class MyController {
     @Autowired
-    private Converter converter;
-    private DTO myDto;
+    private MyComponent myComponent;
 
     @GetMapping("/get-dto")
     public ResponseEntity<DTO> getDto(){
-        if(myDto==null){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity(myDto, HttpStatus.OK);
+        return myComponent.getDto();
     }
 
     @PostMapping("/post-dto/{name}/{description}")
     public MicroserviseBaseResponse saveDto(@PathVariable String name, @PathVariable String description){
-        if(myDto == null){
-            myDto = new DTO(name, description);
-            return new MicroserviseBaseResponse(true, null, 200);
-        }
-            return new MicroserviseBaseResponse(false, "already exist", 409);
+        return myComponent.saveDto(name, description);
     }
 
-    @PostMapping("/post-dto-1")
+    @PostMapping("/post-dto-params")
     public MicroserviseBaseResponse saveDto1(@RequestParam String name, @RequestParam String description){
-        if(myDto == null){
-            myDto = new DTO(name, description);
-            return new MicroserviseBaseResponse(true, null, 200);
-        }
-        return new MicroserviseBaseResponse(false, "already exist", 409);
+        return myComponent.saveDto(name, description);
     }
 
-    @PostMapping("/post-dto-2")
+    @PostMapping("/post-dto-body")
     public MicroserviseBaseResponse saveDto2(@RequestBody Item item){
-        if(myDto == null){
-            myDto = converter.toDTO(item);
-            return new MicroserviseBaseResponse(true, null, 200);
-        }
-        return new MicroserviseBaseResponse(false, "already exist", 409);
+        return myComponent.saveDtoFromItem(item);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.demo.api;
 
+import com.example.demo.api.entity.DTO;
+import com.example.demo.api.entity.Item;
 import org.springframework.stereotype.Component;
 
 @Component
