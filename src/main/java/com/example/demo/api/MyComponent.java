@@ -3,6 +3,7 @@ package com.example.demo.api;
 import com.example.demo.api.entity.DTO;
 import com.example.demo.api.entity.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -34,5 +35,13 @@ public class MyComponent {
             return new MicroserviseBaseResponse(true, null, 200);
         }
         return new MicroserviseBaseResponse(false, "already exist", 409);
+    }
+
+    public MicroserviseBaseResponse deleteDto(){
+        if(myDto == null){
+            return new MicroserviseBaseResponse(false, "already deleted", 404);
+        }
+        myDto = null;
+        return new MicroserviseBaseResponse(true, null, 200);
     }
 }

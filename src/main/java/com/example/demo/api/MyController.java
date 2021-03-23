@@ -31,4 +31,9 @@ public class MyController {
     public MicroserviseBaseResponse saveDto2(@RequestBody Item item){
         return myComponent.saveDtoFromItem(item);
     }
+
+    @DeleteMapping("/delete-dto")
+    public MicroserviseBaseResponse deleteDto(){
+        return myComponent.deleteDto();
+    }
 }
