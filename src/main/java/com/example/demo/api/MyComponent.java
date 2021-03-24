@@ -48,13 +48,12 @@ public class MyComponent {
         return new MicroserviseBaseResponse(true, null, 201);
     }
 
-    public MicroserviseBaseResponse deleteDto(){
-        Optional<ItemEntity> dtoOptional = itemRepository.findAll().stream().findFirst();
-        if(dtoOptional.isEmpty()){
+    public MicroserviseBaseResponse deleteItems(){
+        if(itemRepository.count() == 0){
             return new MicroserviseBaseResponse(false, null, 404);
         }
 
-        itemRepository.delete(dtoOptional.get());
+        itemRepository.deleteAll();
 
         return new MicroserviseBaseResponse(true, null, 201);
     }

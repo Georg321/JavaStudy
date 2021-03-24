@@ -34,6 +34,6 @@ public class MyController {
 
     @DeleteMapping("/delete-dto")
     public MicroserviseBaseResponse deleteDto(){
-        return myComponent.deleteDto();
+        return myComponent.deleteItems();
     }
 }
