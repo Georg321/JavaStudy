@@ -2,12 +2,13 @@ package com.example.demo.api.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
-@NoArgsConstructor
-public class Item {
+@Data
+public class ItemEntity {   //Сущность для хранения в базе данных
     private String name;
     private String description;
+    private LocalDateTime created;
 }

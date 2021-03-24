@@ -14,7 +14,7 @@ public class MyController {
 
     @GetMapping("/get-dto")
     public ResponseEntity<DTO> getDto(){
-        return myComponent.getDto();
+        return myComponent.getFirstDto();
     }
 
     @PostMapping("/post-dto/{name}/{description}")
