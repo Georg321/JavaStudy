@@ -5,11 +5,14 @@ import com.example.demo.api.entity.Item;
 import com.example.demo.api.entity.ItemEntity;
 import com.example.demo.api.entity.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -18,6 +21,16 @@ public class MyComponent {
     private Converter converter;
     @Autowired
     private ItemRepository itemRepository;  //Интерфейс для работы с бд
+
+    @Value("${host}")
+    String host;
+
+    @PostConstruct
+    void init(){
+        List<ItemEntity> list = itemRepository.findAllByName("Robert3");
+        double a = 0.0;
+    }
+
 
     public ResponseEntity<DTO> getFirstDto(){
         /*Поскольку мы теперь работаем с бд, мы получаем сразу много сущностей, если не ищем по MongoID,
@@ -50,7 +63,7 @@ public class MyComponent {
 
     public MicroserviseBaseResponse deleteItems(){
         if(itemRepository.count() == 0){
-            return new MicroserviseBaseResponse(false, null, 404);
+            return new MicroserviseBaseResponse(false, "Mistake", 404);
         }
 
         itemRepository.deleteAll();
